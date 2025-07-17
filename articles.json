@@ -1,85 +1,24 @@
 [
   {
-    id: 1,
-    title: "Erewash to Spend £2 Million on Graffiti Warfare and Slightly Shinier Bins",
-    excerpt: "Erewash Borough Council has announced plans to hurl a whopping £2 million at “public services and the long-term future of the borough” via something called the Erewash Investment Fund, which sounds made up but definitely isn’t because it’s on Facebook",
-    content: `
-      <p>Erewash Borough Council has announced plans to hurl a whopping £2 million at “public services and the long-term future of the borough” via something called the <em>Erewash Investment Fund</em>, which sounds made up but definitely isn’t because it’s on Facebook.</p>
-
-      <p>Phase One (also known as "the one they actually wrote down") includes:</p>
-      <ul>
-        <li>£210,000 for <strong>“cleaner and tidier” towns</strong> — a bold move, given the ongoing local war against empty crisp packets.</li>
-        <li>£135,000 to enhance the powers of <strong>Neighbourhood Wardens</strong>, who are now expected to stop fly-tipping, graffiti, and possibly time itself.</li>
-        <li>£101,000 on <strong>replacement street furniture</strong>, presumably to finally get rid of the “temporary” bench made from milk crates in Ilkeston.</li>
-        <li><strong>£20,000</strong> for a <em>War on Graffiti</em>, featuring graffiti removal kits and what is presumably a Graffiti War Council headquartered in a wheely bin.</li>
-        <li>£50,000 on <strong>street art murals</strong>, thereby undoing the graffiti war just above. A clever circular economy of walls.</li>
-        <li>And £165,000 to <strong>stop Cotmanhay Community Network Centre from disappearing into rent-based oblivion</strong>.</li>
-      </ul>
-
-      <h2>Leadership Reacts Heroically</h2>
-      <p>Leader of the Council, Councillor James “The Wallet” Dawson, stated:</p>
-      <div class="quote">“This is just the beginning. Phase Two will feature even more numbers and possibly a commemorative plaque.”</div>
-
-      <p>Meanwhile, Deputy Leader Councillor Becca Everett proudly announced civic pride initiatives, including “getting new shops open” and “shaming building owners online.” Revolutionary stuff.</p>
-
-      <h2>Public Reactions</h2>
-      <ul>
-        <li>“Are we finally getting that bin lid back on Bath Street?” – Local bin enthusiast</li>
-        <li>“If they paint over my mural of Shrek again I swear I’m going to parliament.” – Unlicensed street artist</li>
-        <li>“Do we get to vote on which graffiti gets warred?” – Concerned democratic realist</li>
-      </ul>
-
-      <h2>What's Next?</h2>
-      <p>The funding is expected to be approved at a Very Important Council Executive Meeting™ at Ilkeston Town Hall on <strong>Tuesday 22 July</strong> — a date that may or may not exist in the council’s current understanding of the Gregorian calendar.</p>
-
-      <p>Further announcements will apparently arrive “later in the year,” or whenever the Government remembers local councils exist.</p>
-
-    `,
-    category: "Local News",
-    author: "AI Slop Generator A",
-    date: "2025-07-16",
-    image: "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-1.png",
-    featured: false
+    "id": 1,
+    "title": "Erewash to Spend £2 Million on Graffiti Warfare and Slightly Shinier Bins",
+    "excerpt": "Erewash Borough Council has announced plans to hurl a whopping £2 million at “public services and the long-term future of the borough” via something called the Erewash Investment Fund, which sounds made up but definitely isn’t because it’s on Facebook",
+    "content": "<p>Erewash Borough Council has announced plans to hurl a whopping £2 million at “public services and the long-term future of the borough” via something called the <em>Erewash Investment Fund</em>, which sounds made up but definitely isn’t because it’s on Facebook.</p>\n\n<p>Phase One (also known as \"the one they actually wrote down\") includes:</p>\n<ul>\n  <li>£210,000 for <strong>“cleaner and tidier” towns</strong> — a bold move, given the ongoing local war against empty crisp packets.</li>\n  <li>£135,000 to enhance the powers of <strong>Neighbourhood Wardens</strong>, who are now expected to stop fly-tipping, graffiti, and possibly time itself.</li>\n  <li>£101,000 on <strong>replacement street furniture</strong>, presumably to finally get rid of the “temporary” bench made from milk crates in Ilkeston.</li>\n  <li><strong>£20,000</strong> for a <em>War on Graffiti</em>, featuring graffiti removal kits and what is presumably a Graffiti War Council headquartered in a wheely bin.</li>\n  <li>£50,000 on <strong>street art murals</strong>, thereby undoing the graffiti war just above. A clever circular economy of walls.</li>\n  <li>And £165,000 to <strong>stop Cotmanhay Community Network Centre from disappearing into rent-based oblivion</strong>.</li>\n</ul>\n\n<h2>Leadership Reacts Heroically</h2>\n<p>Leader of the Council, Councillor James “The Wallet” Dawson, stated:</p>\n<div class=\"quote\">“This is just the beginning. Phase Two will feature even more numbers and possibly a commemorative plaque.”</div>\n\n<p>Meanwhile, Deputy Leader Councillor Becca Everett proudly announced civic pride initiatives, including “getting new shops open” and “shaming building owners online.” Revolutionary stuff.</p>\n\n<h2>Public Reactions</h2>\n<ul>\n  <li>“Are we finally getting that bin lid back on Bath Street?” – Local bin enthusiast</li>\n  <li>“If they paint over my mural of Shrek again I swear I’m going to parliament.” – Unlicensed street artist</li>\n  <li>“Do we get to vote on which graffiti gets warred?” – Concerned democratic realist</li>\n</ul>\n\n<h2>What's Next?</h2>\n<p>The funding is expected to be approved at a Very Important Council Executive Meeting™ at Ilkeston Town Hall on <strong>Tuesday 22 July</strong> — a date that may or may not exist in the council’s current understanding of the Gregorian calendar.</p>\n\n<p>Further announcements will apparently arrive “later in the year,” or whenever the Government remembers local councils exist.</p>",
+    "category": "Local News",
+    "author": "AI Slop Generator A",
+    "date": "2025-07-16",
+    "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-1.png",
+    "featured": false
   },
   {
-    id: 2,
-    title: "Brick-Based Resurrection of Local Culture Through the Eyes of a Drone",
-    excerpt: "“The bricks will be reused where possible, and crushed where not. Either way, something will happen to them, which is important.”",
-    content: `
-      <p>In a move hailed as “visionary” by at least three people and a drone, the council has proudly unveiled drone shots of the partially demolished Galaxy Row cinema, now reborn as “a giant pile of potential.”</p>
-
-      <p>The site, which was once a bustling cultural hub for teenagers pretending to enjoy Marvel movies, is being “carefully dismantled” by a firm called Total Reclaims Demolition — which sources say is either a demolition company or a 2003 Xbox game.</p>
-
-      <h2>Bricks: The New Heritage Currency</h2>
-      <p>Approximately 250,000 bricks are being harvested, presumably by hand, one emotional sigh at a time. These historic bricks — some of which may have once heard <em>Fast & Furious 5</em> through the walls — are being cleaned, sanctified, and prepared for their next life as <em>“townhouses nobody local can afford.”</em></p>
-
-      <blockquote>“I’m sure everyone in Long Eaton will be as delighted as I am to see these drone pictures,” said Richard Ledger, Chair of the Long Eaton Town Deal Board, who was reportedly pointing at a JPEG of rubble during the interview.</blockquote>
-
-      <h2>The Vision: Brick by Brick</h2>
-      <p>Future plans for the site include 16 flats, 4 townhouses, and “three business premises,” which sources close to AI News believe may be a Greggs, a vape shop, and a third Greggs.</p>
-
-      <p>Commercial Director Tom Spink, MRICS, added:</p>
-      <blockquote>“The bricks will be reused where possible, and crushed where not. Either way, something will happen to them, which is important.”</blockquote>
-
-      <p>The council has clarified that while the bricks have not been assigned to a specific project, they may one day end up in a tasteful development somewhere “brick-relevant.”</p>
-
-      <h2>Reaction on the Ground (Literally)</h2>
-      <ul>
-        <li><strong>Local resident, age 64:</strong> “I watched Star Wars in that cinema. Now I get to walk past a pile of its ashes on the way to Aldi.”</li>
-        <li><strong>Teenager with drone:</strong> “It’s good content. Got 600 likes.”</li>
-        <li><strong>AI Misinterpretation Bot:</strong> “Galaxy Row to be rebuilt entirely out of one long brick. Structure unstable. Proceed with civic optimism.”</li>
-      </ul>
-
-      <h2>The Future is Made of Rubble</h2>
-      <p>Councillor Curtis Howard, Lead Member for Town Centres, Regeneration and Brick Nostalgia, said:</p>
-      <blockquote>“I’m thrilled the legacy of this cinema will live on in brick form, which is the most sustainable kind of memory besides murals or commemorative Tupperware.”</blockquote>
-
-      <p>Plans for phase two include something called “civic uplift,” which sounds promising and may or may not involve additional bricks.</p>
-    `,
-    category: "Local News",
-    author: "AI Slop Generator A",
-    date: "2025-07-17",
-    image: "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-2.png",
-    featured: true
+    "id": 2,
+    "title": "Brick-Based Resurrection of Local Culture Through the Eyes of a Drone",
+    "excerpt": "“The bricks will be reused where possible, and crushed where not. Either way, something will happen to them, which is important.”",
+    "content": "<p>In a move hailed as “visionary” by at least three people and a drone, the council has proudly unveiled drone shots of the partially demolished Galaxy Row cinema, now reborn as “a giant pile of potential.”</p>\n\n<p>The site, which was once a bustling cultural hub for teenagers pretending to enjoy Marvel movies, is being “carefully dismantled” by a firm called Total Reclaims Demolition — which sources say is either a demolition company or a 2003 Xbox game.</p>\n\n<h2>Bricks: The New Heritage Currency</h2>\n<p>Approximately 250,000 bricks are being harvested, presumably by hand, one emotional sigh at a time. These historic bricks — some of which may have once heard <em>Fast & Furious 5</em> through the walls — are being cleaned, sanctified, and prepared for their next life as <em>“townhouses nobody local can afford.”</em></p>\n\n<blockquote>“I’m sure everyone in Long Eaton will be as delighted as I am to see these drone pictures,” said Richard Ledger, Chair of the Long Eaton Town Deal Board, who was reportedly pointing at a JPEG of rubble during the interview.</blockquote>\n\n<h2>The Vision: Brick by Brick</h2>\n<p>Future plans for the site include 16 flats, 4 townhouses, and “three business premises,” which sources close to AI News believe may be a Greggs, a vape shop, and a third Greggs.</p>\n\n<p>Commercial Director Tom Spink, MRICS, added:</p>\n<blockquote>“The bricks will be reused where possible, and crushed where not. Either way, something will happen to them, which is important.”</blockquote>\n\n<p>The council has clarified that while the bricks have not been assigned to a specific project, they may one day end up in a tasteful development somewhere “brick-relevant.”</p>\n\n<h2>Reaction on the Ground (Literally)</h2>\n<ul>\n  <li><strong>Local resident, age 64:</strong> “I watched Star Wars in that cinema. Now I get to walk past a pile of its ashes on the way to Aldi.”</li>\n  <li><strong>Teenager with drone:</strong> “It’s good content. Got 600 likes.”</li>\n  <li><strong>AI Misinterpretation Bot:</strong> “Galaxy Row to be rebuilt entirely out of one long brick. Structure unstable. Proceed with civic optimism.”</li>\n</ul>\n\n<h2>The Future is Made of Rubble</h2>\n<p>Councillor Curtis Howard, Lead Member for Town Centres, Regeneration and Brick Nostalgia, said:</p>\n<blockquote>“I’m thrilled the legacy of this cinema will live on in brick form, which is the most sustainable kind of memory besides murals or commemorative Tupperware.”</blockquote>\n\n<p>Plans for phase two include something called “civic uplift,” which sounds promising and may or may not involve additional bricks.</p>",
+    "category": "Local News",
+    "author": "AI Slop Generator A",
+    "date": "2025-07-17",
+    "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-2.png",
+    "featured": true
   }
 ]
