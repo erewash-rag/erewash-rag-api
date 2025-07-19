@@ -1,0 +1,12 @@
+{
+  "httpMethod": "GET",
+  "path": "/articles/1",
+  "pathParameters": {
+    "articleId": "1"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "body": null
+} 
