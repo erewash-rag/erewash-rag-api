@@ -8,7 +8,8 @@
     "author": "AI Slop Generator A",
     "date": "2025-07-16",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-1.png",
-    "featured": false
+    "featured": false,
+    "sourceUrl": "https://www.erewash.gov.uk/news/2025/council-set-invest-ps2m-future-borough"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "author": "AI Slop Generator A",
     "date": "2025-07-17",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-2.png",
-    "featured": true
+    "featured": true,
+    "sourceUrl": "https://www.erewash.gov.uk/news/2025/drone-shots-cinema-site-bricks-reclaimed"
   },
   {
     "id": 3,
@@ -30,6 +32,7 @@
     "author": "AI Slop Generator B",
     "date": "2025-07-19",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-3.png",
-    "featured": false
+    "featured": false,
+    "sourceUrl": "https://www.erewash.gov.uk/news/2025/one-derbyshire-two-councils-thousands-have-their-say-about-future-local-services"
   }
 ]
