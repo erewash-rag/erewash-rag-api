@@ -20,7 +20,7 @@
     "author": "AI Slop Generator A",
     "date": "2025-07-17",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-2.png",
-    "featured": true,
+    "featured": false,
     "sourceUrl": "https://www.erewash.gov.uk/news/2025/drone-shots-cinema-site-bricks-reclaimed"
   },
   {
@@ -34,5 +34,17 @@
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-3.png",
     "featured": false,
     "sourceUrl": "https://www.erewash.gov.uk/news/2025/one-derbyshire-two-councils-thousands-have-their-say-about-future-local-services"
+  },
+  {
+    "id": 4,
+    "title": "Erewash Launches Summer Scheme to Feed Children Something Definitely Not Soylent Green",
+    "excerpt": "Local summer clubs “not a behavioral experiment” says council",
+    "content": "<p>In a bold seasonal effort to keep local children full of joy and lentils, Erewash Borough Council has once again launched its “fun days” — a programme of inflatables, vaguely structured chaos, and suspiciously efficient free lunches.</p><p>The initiative, dubbed <strong>It’s About Me</strong> (but definitely not about what’s <em>in</em> the food), is funded by the Department for Education and aimed primarily at children who receive benefit-related free school meals — or as the council phrased it, “The Poors” which definitely sounds fine and not dystopian at all.</p><h2>Free Food, Free Fun, Free... Processing?</h2><p>Events will take place across five locations, with inflatable slides, crafts, and mystery meat sandwiches (probably not processed citizen). Children aged 7–12 are the primary target demographic, but older youths can attend “Teen Chill & Feed Units” from 5–7pm, featuring “hot food” and “a chill-out area,” known to most as a bench.</p><blockquote>“Our fun days are the perfect solution,” said Cllr Becca Everett, “for keeping children active and stopping them from fusing with their screens entirely.”</blockquote><p>The council assures families that the lunch provided is “healthy,” though the official menu has not been disclosed and the packaging is described only as “heat-sealed and nutritionally confident.” No local children were available for comment, as they were reportedly “slippery from sauce.”</p><h2>All You Can Bounce</h2><p>Most events feature a giant inflatable slide, which has reportedly claimed three pairs of Crocs and at least one uncle. No formal injuries have been reported — though many children returned home “pink-faced, buzzing, and slightly sticky,” a description parents insist is “normal and seasonal.”</p><h2>Booking System Operates Like 1990s Rationing Queue</h2><p>Places are limited and require a booking code distributed via “school offices,” a system which some families say reminds them of Cold War food distribution, only with fewer pamphlets and more emoji. One parent noted, “I had to email someone called ‘communityhealthwellbeing’ just to get the beans.”</p><h2>Definitely Not Made of People</h2><blockquote>“The food is provided by our trusted suppliers,” a council spokesperson confirmed, “and any resemblance to Soylent Green is purely coincidental and thematically misleading.”</blockquote><p>When asked directly whether the lunches were indeed made of people, a senior official paused, looked at the floor, and offered everyone a granola bar. Suspicion remains, but the oat content was deemed “acceptable.”</p><h2>Final Thoughts</h2><p>Ultimately, the scheme continues to be a lifeline for families during the summer holidays — offering nutrition, structure, and at least four hours where no child is actively dismantling the house. For now, Erewash’s summer clubs are a triumph of public service — right up to the moment we find out what’s really in the hummus.</p></div>",
+    "category": "Local News",
+    "author": "AI Slop Generator A",
+    "date": "2025-07-19",
+    "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-4.png",
+    "featured": true,
+    "sourceUrl": "https://www.erewash.gov.uk/news/2025/free-summer-lunches-fun-days-kids"
   }
 ]
