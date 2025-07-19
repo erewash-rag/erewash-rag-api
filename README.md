@@ -7,6 +7,7 @@ A serverless API built with AWS Lambda that serves articles from a JSON file.
 - **GET /articles** - Returns all articles
 - **GET /articles/{articleId}** - Returns a specific article by ID
 - Automatic deployment via GitHub Actions
+- Local development server with Flask
 
 ## Local Development
 
@@ -15,17 +16,43 @@ A serverless API built with AWS Lambda that serves articles from a JSON file.
 - Python 3.8+
 - AWS CLI (for deployment)
 
-### Testing Locally
+### Running Locally
 
-1. Run the test script to verify functionality:
+1. **Start the local server:**
    ```bash
-   python test_lambda.py
+   python run_local.py
+   ```
+   
+   Or manually:
+   ```bash
+   pip install -r requirements.txt
+   python app.py
    ```
 
-2. The test script will verify:
-   - GET /articles returns all articles
-   - GET /articles/1 returns article with ID 1
-   - GET /articles/999 returns 404 for non-existent articles
+2. **The server will start on http://localhost:8080**
+
+3. **Test the endpoints:**
+   ```bash
+   python test_local_api.py
+   ```
+
+4. **Manual testing:**
+   - GET http://localhost:8080/health
+   - GET http://localhost:8080/articles
+   - GET http://localhost:8080/articles/1
+   - GET http://localhost:8080/articles/999 (should return 404)
+
+### Testing Lambda Function Locally
+
+Run the test script to verify Lambda functionality:
+```bash
+python test_lambda.py
+```
+
+The test script will verify:
+- GET /articles returns all articles
+- GET /articles/1 returns article with ID 1
+- GET /articles/999 returns 404 for non-existent articles
 
 ## Deployment
 
@@ -113,4 +140,15 @@ Returns a specific article by ID.
 **Error Responses:**
 - `404` - Article not found
 - `400` - Invalid article ID format
-- `500` - Server error 
+- `500` - Server error
+
+### GET /health
+Health check endpoint (local development only).
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "message": "Erewash RAG API is running"
+}
+``` 
