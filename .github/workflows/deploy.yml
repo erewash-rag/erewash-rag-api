@@ -1,4 +1,4 @@
-name: Deploy Lambda to S3
+name: Deploy Lambda to S3 and Update Function
 
 on:
   push:
@@ -25,4 +25,25 @@ jobs:
         
     - name: Upload to S3
       run: |
-        aws s3 cp deployable.zip s3://erewash-rag-server-code/deployable.zip 
+        aws s3 cp deployable.zip s3://erewash-rag-server-code/deployable.zip
+        
+    - name: Update Lambda function
+      run: |
+        aws lambda update-function-code \
+          --function-name erewash-rag-api \
+          --s3-bucket erewash-rag-server-code \
+          --s3-key deployable.zip \
+          --region eu-west-2
+          
+    - name: Wait for update to complete
+      run: |
+        aws lambda wait function-updated \
+          --function-name erewash-rag-api \
+          --region eu-west-2
+          
+    - name: Publish new version
+      run: |
+        aws lambda publish-version \
+          --function-name erewash-rag-api \
+          --description "Deployed from GitHub Actions" \
+          --region eu-west-2 

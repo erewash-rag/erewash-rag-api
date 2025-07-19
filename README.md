@@ -62,7 +62,9 @@ The test script will verify:
    - `AWS_ACCESS_KEY_ID` - Your AWS access key
    - `AWS_SECRET_ACCESS_KEY` - Your AWS secret key
 
-2. Ensure your AWS user has S3 permissions for the bucket `erewash-rag-server-code`
+2. Ensure your AWS user has permissions for:
+   - S3 bucket `erewash-rag-server-code`
+   - Lambda function `erewash-rag-api`
 
 ### Automatic Deployment
 
@@ -70,6 +72,9 @@ The GitHub Actions workflow will automatically:
 1. Trigger on push to `main` branch
 2. Create a zip file containing `lambda_function.py` and `articles.json`
 3. Upload the zip to `s3://erewash-rag-server-code/deployable.zip`
+4. Update the Lambda function `erewash-rag-api` with the new code
+5. Wait for the update to complete
+6. Publish a new version of the function
 
 ### Manual Deployment
 
@@ -85,12 +90,20 @@ If you need to deploy manually:
    aws s3 cp deployable.zip s3://erewash-rag-server-code/deployable.zip
    ```
 
+3. Update Lambda function:
+   ```bash
+   aws lambda update-function-code \
+     --function-name erewash-rag-api \
+     --s3-bucket erewash-rag-server-code \
+     --s3-key deployable.zip \
+     --region eu-west-2
+   ```
+
 ## AWS Lambda Setup
 
-1. Create a Lambda function in AWS Console
+1. Create a Lambda function named `erewash-rag-api` in AWS Console
 2. Set the handler to `lambda_function.lambda_handler`
-3. Upload the `deployable.zip` from S3
-4. Configure API Gateway with routes:
+3. Configure API Gateway with routes:
    - GET /articles
    - GET /articles/{articleId}
 

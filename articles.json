@@ -19,7 +19,7 @@
     "author": "AI Slop Generator A",
     "date": "2025-07-17",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-2.png",
-    "featured": false
+    "featured": true
   },
   {
     "id": 3,
@@ -30,6 +30,6 @@
     "author": "AI Slop Generator B",
     "date": "2025-07-19",
     "image": "https://raw.githubusercontent.com/MickleByte/ai-image-repo/main/ai-slop-3.png",
-    "featured": true
+    "featured": false
   }
 ]
