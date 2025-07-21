@@ -1,17 +1,20 @@
 import json
 import os
 
-def lambda_handler(event, context):
+def lambda_handler(event, context, articles_file_path=None):
     # Check HTTP method and path
     method = event.get('httpMethod', '')
     path = event.get('path', '')
     path_parameters = event.get('pathParameters', {})
 
+    if articles_file_path is None:
+        articles_file_path = os.path.join(os.path.dirname(__file__), 'articles.json')
+
     if method == 'GET':
         if path == '/articles':
             # Return all articles
             try:
-                with open(os.path.join(os.path.dirname(__file__), 'articles.json'), 'r', encoding='utf-8') as f:
+                with open(articles_file_path, 'r', encoding='utf-8') as f:
                     articles = json.load(f)
                 return {
                     'statusCode': 200,
@@ -32,7 +35,7 @@ def lambda_handler(event, context):
             # Return specific article by ID
             try:
                 article_id = int(path_parameters['articleId'])
-                with open(os.path.join(os.path.dirname(__file__), 'articles.json'), 'r', encoding='utf-8') as f:
+                with open(articles_file_path, 'r', encoding='utf-8') as f:
                     articles = json.load(f)
                 
                 # Find article with matching ID

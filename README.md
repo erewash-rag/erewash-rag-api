@@ -54,6 +54,20 @@ The test script will verify:
 - GET /articles/1 returns article with ID 1
 - GET /articles/999 returns 404 for non-existent articles
 
+## Running Unit Tests
+
+To run the unit tests locally, ensure you have all dependencies installed:
+
+```
+pip install -r requirements.txt
+```
+
+Then run:
+
+```
+pytest
+```
+
 ## Deployment
 
 ### GitHub Actions Setup
