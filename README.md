@@ -85,7 +85,7 @@ pytest
 The GitHub Actions workflow will automatically:
 1. Trigger on push to `main` branch
 2. Create a zip file containing `lambda_function.py` and `articles.json`
-3. Upload the zip to `s3://erewash-rag-server-code/deployable.zip`
+3. Upload the zip to `s3://erewash-rag-server-code/erewash-rag-api.zip`
 4. Update the Lambda function `erewash-rag-api` with the new code
 5. Wait for the update to complete
 6. Publish a new version of the function
@@ -96,12 +96,12 @@ If you need to deploy manually:
 
 1. Create the deployment package:
    ```bash
-   zip -r deployable.zip lambda_function.py articles.json
+   zip -r erewash-rag-api.zip lambda_function.py articles.json
    ```
 
 2. Upload to S3:
    ```bash
-   aws s3 cp deployable.zip s3://erewash-rag-server-code/deployable.zip
+   aws s3 cp erewash-rag-api.zip s3://erewash-rag-server-code/erewash-rag-api.zip
    ```
 
 3. Update Lambda function:
@@ -109,7 +109,7 @@ If you need to deploy manually:
    aws lambda update-function-code \
      --function-name erewash-rag-api \
      --s3-bucket erewash-rag-server-code \
-     --s3-key deployable.zip \
+     --s3-key erewash-rag-api.zip \
      --region eu-west-2
    ```
 

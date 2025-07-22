@@ -11,10 +11,25 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GHCR_TOKEN }}
+
+    - name: Build Docker image
+      run: |
+        docker build -t ghcr.io/erewah-rag/erewash-rag-api:latest .
+
+    - name: Push Docker image
+      run: |
+        docker push ghcr.io/erewah-rag/erewash-rag-api:latest
+        
     - name: Create deployment package
       run: |
-        zip -r deployable.zip lambda_function.py articles.json
+        zip -r erewash-rag-api.zip lambda_function.py articles.json
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -25,14 +40,14 @@ jobs:
         
     - name: Upload to S3
       run: |
-        aws s3 cp deployable.zip s3://erewash-rag-server-code/deployable.zip
+        aws s3 cp erewash-rag-api.zip s3://erewash-rag-server-code/erewash-rag-api.zip
         
     - name: Update Lambda function
       run: |
         aws lambda update-function-code \
           --function-name erewash-rag-api \
           --s3-bucket erewash-rag-server-code \
-          --s3-key deployable.zip \
+          --s3-key erewash-rag-api.zip \
           --region eu-west-2
           
     - name: Wait for update to complete
