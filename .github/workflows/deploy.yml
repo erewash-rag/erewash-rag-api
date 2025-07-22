@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ghcr.io/erewah-rag/erewash-rag-api:latest .
+        docker build -t 318874356511.dkr.ecr.eu-west-2.amazonaws.com/erewash-rag-api:latest
 
     - name: Push Docker image
       run: |
