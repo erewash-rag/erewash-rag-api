@@ -39,13 +39,12 @@ jobs:
       run: |
         aws s3 cp erewash-rag-api.zip s3://erewash-rag-server-code/erewash-rag-api.zip
         
-    - name: Update Lambda function
+    - name: Update Lambda function to use latest image
       run: |
         aws lambda update-function-code \
           --function-name erewash-rag-api \
-          --s3-bucket erewash-rag-server-code \
-          --s3-key erewash-rag-api.zip \
-          --region eu-west-2
+          --image-uri 318874356511.dkr.ecr.eu-west-2.amazonaws.com/erewash-rag-api:latest \
+          --region eu-west-2 
           
     - name: Wait for update to complete
       run: |
