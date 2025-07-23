@@ -6,12 +6,13 @@ import pytest
 from lambda_function import lambda_handler
 import boto3
 
-def make_event(method, path, path_parameters=None, query_parameters=None):
+def make_event(method, path, path_parameters=None, query_parameters=None, body=None):
     return {
         'httpMethod': method,
         'path': path,
         'pathParameters': path_parameters or {},
-        'queryStringParameters': query_parameters or {}
+        'queryStringParameters': query_parameters or {},
+        'body': body or {}
     }
 
 @pytest.fixture
@@ -92,3 +93,10 @@ def test_get_draft_article_by_id_experiment_false(mock_dynamodb_articles):
     assert response['statusCode'] == 404
     body = json.loads(response['body'])
     assert 'not found' in body['error'].lower()
+
+def test_post_article(mock_dynamodb_articles):
+    event = make_event('POST', '/articles', None, None, {'title': 'Test Article 4', 'draft': True})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 201
+    articles = json.loads(response['body'])
+    assert articles['id'] == "4"

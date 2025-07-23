@@ -73,6 +73,29 @@ def lambda_handler(event, context):
 
             except Exception as e:
                 return internal_server_exception(e)
+    elif method == 'POST' and path == '/articles':
+        try:
+            body = event.get('body', {})
+            if isinstance(body, str):
+                item = json.loads(body)
+            else:
+                item = body
+            # Generate new id (use max id + 1 or fallback to 1 if table empty)
+            scan = table.scan(ProjectionExpression='id')
+            ids = [int(a['id']) for a in scan.get('Items', []) if a.get('id', '').isdigit()]
+            new_id = str(max(ids) + 1) if ids else '1'
+            item['id'] = new_id
+            table.put_item(Item=item)
+            return {
+                'statusCode': 201,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps(item)
+            }
+        except Exception as e:
+            return internal_server_exception(e)
     
     return {
         'statusCode': 404,
