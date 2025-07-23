@@ -7,6 +7,14 @@ dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table('articles')
 tableName = 'articles'
 
+def internal_server_exception(e):
+    print("error: ", e)
+    return {
+        'statusCode': 500,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps({'error': str(e)})
+    }
+
 def lambda_handler(event, context, articles_file_path=None):
     # Check HTTP method and path
     method = event.get('httpMethod', '')
@@ -23,7 +31,6 @@ def lambda_handler(event, context, articles_file_path=None):
 
     if method == 'GET':
         if path == '/articles' and experiment == 'true':
-            # Return all articles
             try:
                 articles = table.scan()
                 return {
@@ -35,15 +42,9 @@ def lambda_handler(event, context, articles_file_path=None):
                     'body': json.dumps(articles.get('Items'))
                 }
             except Exception as e:
-                print("error: ", e)
-                return {
-                    'statusCode': 500,
-                    'headers': {'Content-Type': 'application/json'},
-                    'body': json.dumps({'error': str(e)})
-                }
+                return internal_server_exception(e)
         
         elif path == '/articles':
-            # Return all articles
             try:
                 with open(articles_file_path, 'r', encoding='utf-8') as f:
                     articles = json.load(f)
@@ -56,12 +57,20 @@ def lambda_handler(event, context, articles_file_path=None):
                     'body': json.dumps(articles)
                 }
             except Exception as e:
+                return internal_server_exception(e)
+
+        elif path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters and experiment == 'true':
+            try:
+                article_id = path_parameters['articleId']
+                article = table.get_item(Key={'id': article_id})
                 return {
-                    'statusCode': 500,
+                    'statusCode': 200,
                     'headers': {'Content-Type': 'application/json'},
-                    'body': json.dumps({'error': str(e)})
+                    'body': json.dumps(article.get('Item'))
                 }
-        
+            except Exception as e:
+                return internal_server_exception(e)
+
         elif path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
             # Return specific article by ID
             try:
@@ -94,11 +103,7 @@ def lambda_handler(event, context, articles_file_path=None):
                     'body': json.dumps({'error': 'Invalid article ID format'})
                 }
             except Exception as e:
-                return {
-                    'statusCode': 500,
-                    'headers': {'Content-Type': 'application/json'},
-                    'body': json.dumps({'error': str(e)})
-                }
+                return internal_server_exception(e)
     
     return {
         'statusCode': 404,

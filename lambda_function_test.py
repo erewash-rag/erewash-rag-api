@@ -1,8 +1,10 @@
+from moto import mock_aws
 import json
 import tempfile
 import os
 import pytest
 from lambda_function import lambda_handler
+import boto3
 
 TEST_ARTICLES = [
     {"id": 1, "title": "Test Article 1"},
@@ -18,12 +20,45 @@ def make_event(method, path, path_parameters=None, query_parameters=None):
     }
 
 @pytest.fixture
+def mock_dynamodb_articles():
+    with mock_aws():
+        # Set up DynamoDB table
+        dynamodb = boto3.resource('dynamodb', region_name='eu-west-2')
+        table = dynamodb.create_table(
+            TableName='articles',
+            KeySchema=[{'AttributeName': 'id', 'KeyType': 'HASH'}],
+            AttributeDefinitions=[{'AttributeName': 'id', 'AttributeType': 'S'}],
+            ProvisionedThroughput={'ReadCapacityUnits': 1, 'WriteCapacityUnits': 1}
+        )
+        table.wait_until_exists()
+        # Insert test data
+        table.put_item(Item={"id": "1", "title": "Test Article 1"})
+        table.put_item(Item={"id": "2", "title": "Test Article 2"})
+        yield
+
+@pytest.fixture
 def temp_articles_file():
     with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json') as f:
         json.dump(TEST_ARTICLES, f)
         f.flush()
         yield f.name
     os.remove(f.name)
+
+def test_get_all_articles_dynamodb(mock_dynamodb_articles):
+    event = make_event('GET', '/articles', query_parameters={'experiment': 'true'})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert isinstance(articles, list)
+    assert len(articles) == 2
+    assert articles[0]['id'] == "1"
+
+def test_get_article_by_id_from_dynamodb(mock_dynamodb_articles):
+    event = make_event('GET', '/articles/1', {'articleId': '1'}, {'experiment': 'true'})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "1"
 
 def test_get_all_articles(temp_articles_file):
     event = make_event('GET', '/articles')
