@@ -96,6 +96,18 @@ def lambda_handler(event, context):
             }
         except Exception as e:
             return internal_server_exception(e)
+
+    elif method == 'DELETE' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
+        try:
+            article_id = path_parameters['articleId']
+            table.delete_item(Key={'id': article_id})
+            return {
+                'statusCode': 204,
+                'headers': {'Content-Type': 'application/json'},
+                'body': json.dumps({'message': 'Article deleted'})
+            }
+        except Exception as e:
+            return internal_server_exception(e)
     
     return {
         'statusCode': 404,

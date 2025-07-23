@@ -100,3 +100,8 @@ def test_post_article(mock_dynamodb_articles):
     assert response['statusCode'] == 201
     articles = json.loads(response['body'])
     assert articles['id'] == "4"
+
+def test_delete_article(mock_dynamodb_articles):
+    event = make_event('DELETE', '/articles/1', {'articleId': "1"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 204
