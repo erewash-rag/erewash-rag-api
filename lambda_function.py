@@ -12,7 +12,11 @@ def lambda_handler(event, context, articles_file_path=None):
     method = event.get('httpMethod', '')
     path = event.get('path', '')
     path_parameters = event.get('pathParameters', {})
-    experiment = event.get('queryStringParameters', {}).get('experiment', 'false')
+
+    if event.get('queryStringParameters') is not None:
+        experiment = event.get('queryStringParameters', {}).get('experiment', 'false')
+    else:
+        experiment = 'false'
 
     if articles_file_path is None:
         articles_file_path = os.path.join(os.path.dirname(__file__), 'articles.json')
