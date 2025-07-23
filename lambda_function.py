@@ -15,6 +15,16 @@ def internal_server_exception(e):
         'body': json.dumps({'error': str(e)})
     }
 
+def success_response(body):
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': body
+    }
+
 def lambda_handler(event, context, articles_file_path=None):
     # Check HTTP method and path
     method = event.get('httpMethod', '')
@@ -33,14 +43,7 @@ def lambda_handler(event, context, articles_file_path=None):
         if path == '/articles' and experiment == 'true':
             try:
                 articles = table.scan()
-                return {
-                    'statusCode': 200,
-                    'headers': {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
-                    'body': json.dumps(articles.get('Items'))
-                }
+                return success_response(json.dumps(articles.get('Items')))
             except Exception as e:
                 return internal_server_exception(e)
         
@@ -48,14 +51,7 @@ def lambda_handler(event, context, articles_file_path=None):
             try:
                 with open(articles_file_path, 'r', encoding='utf-8') as f:
                     articles = json.load(f)
-                return {
-                    'statusCode': 200,
-                    'headers': {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
-                    'body': json.dumps(articles)
-                }
+                return success_response(json.dumps(articles))
             except Exception as e:
                 return internal_server_exception(e)
 
@@ -63,11 +59,7 @@ def lambda_handler(event, context, articles_file_path=None):
             try:
                 article_id = path_parameters['articleId']
                 article = table.get_item(Key={'id': article_id})
-                return {
-                    'statusCode': 200,
-                    'headers': {'Content-Type': 'application/json'},
-                    'body': json.dumps(article.get('Item'))
-                }
+                return success_response(json.dumps(article.get('Item')))
             except Exception as e:
                 return internal_server_exception(e)
 
@@ -82,14 +74,7 @@ def lambda_handler(event, context, articles_file_path=None):
                 article = next((article for article in articles if article['id'] == article_id), None)
                 
                 if article:
-                    return {
-                        'statusCode': 200,
-                        'headers': {
-                            'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*'
-                        },
-                        'body': json.dumps(article)
-                    }
+                    return success_response(json.dumps(article))
                 else:
                     return {
                         'statusCode': 404,
