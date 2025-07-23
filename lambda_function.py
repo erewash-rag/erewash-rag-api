@@ -1,6 +1,7 @@
 import json
 import os
 import boto3
+from boto3.dynamodb.conditions import Attr
 
 client = boto3.client('dynamodb')
 dynamodb = boto3.resource("dynamodb")
@@ -25,6 +26,19 @@ def success_response(body):
         'body': body
     }
 
+def get_all_articles(experiment):
+    if experiment == 'false':
+        articles = table.scan(FilterExpression=Attr('draft').eq(False) | Attr('draft').not_exists())
+    else:
+        articles = table.scan()
+    return json.dumps(articles.get('Items'))
+
+def article_found(article, experiment):    
+    if article.get('Item') is None:
+        return False
+    
+    return (article.get('Item').get('draft') is None or article.get('Item').get('draft') is False) or (article.get('Item').get('draft') == True and experiment == 'true')
+
 def lambda_handler(event, context):
     # Check HTTP method and path
     method = event.get('httpMethod', '')
@@ -39,8 +53,7 @@ def lambda_handler(event, context):
     if method == 'GET':
         if path == '/articles':
             try:
-                articles = table.scan()
-                return success_response(json.dumps(articles.get('Items')))
+                return success_response(get_all_articles(experiment))
             except Exception as e:
                 return internal_server_exception(e)
 
@@ -49,7 +62,7 @@ def lambda_handler(event, context):
                 article_id = path_parameters['articleId']
                 article = table.get_item(Key={'id': article_id})
 
-                if article.get('Item'):
+                if article_found(article, experiment):
                     return success_response(json.dumps(article.get('Item')))
                 else:
                     return {
