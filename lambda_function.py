@@ -1,5 +1,11 @@
 import json
 import os
+import boto3
+
+client = boto3.client('dynamodb')
+dynamodb = boto3.resource("dynamodb")
+table = dynamodb.Table('articles')
+tableName = 'articles'
 
 def lambda_handler(event, context, articles_file_path=None):
     # Check HTTP method and path
@@ -11,7 +17,26 @@ def lambda_handler(event, context, articles_file_path=None):
         articles_file_path = os.path.join(os.path.dirname(__file__), 'articles.json')
 
     if method == 'GET':
-        if path == '/articles':
+        if path == '/articles?experiment=true':
+            # Return all articles
+            try:
+                articles = table.scan()
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps(articles)
+                }
+            except Exception as e:
+                return {
+                    'statusCode': 500,
+                    'headers': {'Content-Type': 'application/json'},
+                    'body': json.dumps({'error': str(e)})
+                }
+        
+        elif path == '/articles':
             # Return all articles
             try:
                 with open(articles_file_path, 'r', encoding='utf-8') as f:
