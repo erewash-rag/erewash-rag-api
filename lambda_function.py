@@ -32,7 +32,7 @@ def lambda_handler(event, context, articles_file_path=None):
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': '*'
                     },
-                    'body': json.dumps(articles)
+                    'body': json.dumps(articles.get('Items'))
                 }
             except Exception as e:
                 print("error: ", e)
