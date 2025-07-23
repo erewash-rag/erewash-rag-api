@@ -1,7 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.8
 
 # Copy function code and articles
-COPY lambda_function.py articles.json ./
+COPY lambda_function.py ./
 
 # Install dependencies if requirements.txt exists
 COPY requirements.txt ./
