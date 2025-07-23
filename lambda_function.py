@@ -97,6 +97,49 @@ def lambda_handler(event, context):
         except Exception as e:
             return internal_server_exception(e)
 
+    elif method == 'PUT' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
+        try:
+            article_id = path_parameters['articleId']
+            # Parse body (handle string or dict)
+            body = event.get('body', {})
+            if isinstance(body, str):
+                update_data = json.loads(body)
+            else:
+                update_data = body
+
+            # Check if article exists
+            article = table.get_item(Key={'id': article_id})
+            if not article.get('Item'):
+                return {
+                    'statusCode': 404,
+                    'headers': {'Content-Type': 'application/json'},
+                    'body': json.dumps({'error': f'Article with ID {article_id} not found'})
+                }
+
+            # Build update expression
+            update_expr = 'SET ' + ', '.join(f"#{k}=:{k}" for k in update_data.keys())
+            expr_attr_names = {f"#{k}": k for k in update_data.keys()}
+            expr_attr_values = {f":{k}": v for k, v in update_data.items()}
+
+            table.update_item(
+                Key={'id': article_id},
+                UpdateExpression=update_expr,
+                ExpressionAttributeNames=expr_attr_names,
+                ExpressionAttributeValues=expr_attr_values
+            )
+            # Fetch updated article
+            updated_article = table.get_item(Key={'id': article_id}).get('Item')
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps(updated_article)
+            }
+        except Exception as e:
+            return internal_server_exception(e)
+
     elif method == 'DELETE' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
         try:
             article_id = path_parameters['articleId']

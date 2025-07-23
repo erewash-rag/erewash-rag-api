@@ -52,7 +52,6 @@ def test_get_article_by_id_from_dynamodb(mock_dynamodb_articles):
 def test_get_article_not_found(mock_dynamodb_articles):
     event = make_event('GET', '/articles/999', {'articleId': "999"})
     response = lambda_handler(event, None)
-    print("response: ", response)
     assert response['statusCode'] == 404
     body = json.loads(response['body'])
     assert 'not found' in body['error'].lower()
@@ -102,6 +101,23 @@ def test_post_article(mock_dynamodb_articles):
     assert articles['id'] == "4"
 
 def test_delete_article(mock_dynamodb_articles):
+    event = make_event('GET', '/articles/1', {'articleId': "1"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "1"
+
     event = make_event('DELETE', '/articles/1', {'articleId': "1"})
     response = lambda_handler(event, None)
     assert response['statusCode'] == 204
+
+    event = make_event('GET', '/articles/1', {'articleId': "1"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 404
+
+def test_put_article(mock_dynamodb_articles):
+    event = make_event('PUT', '/articles/1', {'articleId': "1"}, None, {'title': 'Test Article 1 updated'})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['title'] == 'Test Article 1 updated'
