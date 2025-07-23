@@ -9,11 +9,12 @@ TEST_ARTICLES = [
     {"id": 2, "title": "Test Article 2"}
 ]
 
-def make_event(method, path, path_parameters=None):
+def make_event(method, path, path_parameters=None, query_parameters=None):
     return {
         'httpMethod': method,
         'path': path,
-        'pathParameters': path_parameters or {}
+        'pathParameters': path_parameters or {},
+        'queryStringParameters': query_parameters or {}
     }
 
 @pytest.fixture
@@ -28,6 +29,15 @@ def test_get_all_articles(temp_articles_file):
     event = make_event('GET', '/articles')
     response = lambda_handler(event, None, articles_file_path=temp_articles_file)
     assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert isinstance(articles, list)
+    assert len(articles) == 2
+    assert articles[0]['id'] == 1
+
+def test_get_all_articles_experimental(temp_articles_file):
+    event = make_event('GET', '/articles', None, {'experiment': 'true'})
+    response = lambda_handler(event, None, articles_file_path=temp_articles_file)
+    assert response['statusCode'] == 201
     articles = json.loads(response['body'])
     assert isinstance(articles, list)
     assert len(articles) == 2
