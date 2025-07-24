@@ -80,6 +80,19 @@ def lambda_handler(event, context):
                 item = json.loads(body)
             else:
                 item = body
+
+            # If the new article is featured, set featured=false for all other articles
+            if item.get('featured') is True:
+                # Scan for all articles where featured is True
+                featured_articles = table.scan(FilterExpression=Attr('featured').eq(True))
+                for article in featured_articles.get('Items', []):
+                    # Set featured to False for each
+                    table.update_item(
+                        Key={'id': article['id']},
+                        UpdateExpression='SET featured = :f',
+                        ExpressionAttributeValues={':f': False}
+                    )
+
             # Generate new id (use max id + 1 or fallback to 1 if table empty)
             scan = table.scan(ProjectionExpression='id')
             ids = [int(a['id']) for a in scan.get('Items', []) if a.get('id', '').isdigit()]
@@ -106,6 +119,17 @@ def lambda_handler(event, context):
                 update_data = json.loads(body)
             else:
                 update_data = body
+
+            # If the update sets featured to true, set featured=false for all other articles
+            if update_data.get('featured') is True:
+                featured_articles = table.scan(FilterExpression=Attr('featured').eq(True))
+                for article in featured_articles.get('Items', []):
+                    if article['id'] != article_id:
+                        table.update_item(
+                            Key={'id': article['id']},
+                            UpdateExpression='SET featured = :f',
+                            ExpressionAttributeValues={':f': False}
+                        )
 
             # Check if article exists
             article = table.get_item(Key={'id': article_id})

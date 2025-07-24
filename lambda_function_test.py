@@ -28,8 +28,8 @@ def mock_dynamodb_articles():
         )
         table.wait_until_exists()
         # Insert test data
-        table.put_item(Item={"id": "1", "title": "Test Article 1"})
-        table.put_item(Item={"id": "2", "title": "Test Article 2"})
+        table.put_item(Item={"id": "1", "title": "Test Article 1", "featured": False})
+        table.put_item(Item={"id": "2", "title": "Test Article 2", "featured": True})
         table.put_item(Item={"id": "3", "title": "Test Article 3", "draft": True})
         yield
 
@@ -121,3 +121,47 @@ def test_put_article(mock_dynamodb_articles):
     assert response['statusCode'] == 200
     articles = json.loads(response['body'])
     assert articles['title'] == 'Test Article 1 updated'
+
+def test_post_featured_unfeatures_existing_article(mock_dynamodb_articles):
+    event = make_event('GET', '/articles/2', {'articleId': "2"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "2"
+    assert articles['featured'] == True
+
+    event = make_event('POST', '/articles', None, None, {'title': 'Test Article 4', 'featured': True})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 201
+    articles = json.loads(response['body'])
+    assert articles['id'] == "4"
+    assert articles['featured'] == True
+
+    event = make_event('GET', '/articles/2', {'articleId': "2"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "2"
+    assert articles['featured'] == False
+
+def test_put_featured_unfeatures_existing_article(mock_dynamodb_articles):
+    event = make_event('GET', '/articles/2', {'articleId': "2"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "2"
+    assert articles['featured'] == True
+
+    event = make_event('PUT', '/articles/1', {'articleId': "1"}, None, {'title': 'Test Article 1', 'featured': True})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "1"
+    assert articles['featured'] == True
+
+    event = make_event('GET', '/articles/2', {'articleId': "2"})
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    articles = json.loads(response['body'])
+    assert articles['id'] == "2"
+    assert articles['featured'] == False
