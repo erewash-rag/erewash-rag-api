@@ -74,6 +74,13 @@ def lambda_handler(event, context):
             except Exception as e:
                 return internal_server_exception(e)
     elif method == 'POST' and path == '/articles':
+        api_key = event.get('headers').get('api-key')
+        if api_key != os.getenv('API_KEY'):
+            return {
+                'statusCode': 401,
+                'headers': {'Content-Type': 'application/json'},
+                'body': json.dumps({'error': 'Unauthorized'})
+            }
         try:
             body = event.get('body', {})
             if isinstance(body, str):
