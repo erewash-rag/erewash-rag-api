@@ -118,6 +118,13 @@ def lambda_handler(event, context):
             return internal_server_exception(e)
 
     elif method == 'PUT' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
+        api_key = event.get('headers').get('api-key')
+        if api_key != os.getenv('API_KEY'):
+            return {
+                'statusCode': 401,
+                'headers': {'Content-Type': 'application/json'},
+                'body': json.dumps({'error': 'Unauthorized'})
+            }
         try:
             article_id = path_parameters['articleId']
             # Parse body (handle string or dict)
@@ -172,6 +179,13 @@ def lambda_handler(event, context):
             return internal_server_exception(e)
 
     elif method == 'DELETE' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
+        api_key = event.get('headers').get('api-key')
+        if api_key != os.getenv('API_KEY'):
+            return {
+                'statusCode': 401,
+                'headers': {'Content-Type': 'application/json'},
+                'body': json.dumps({'error': 'Unauthorized'})
+            }
         try:
             article_id = path_parameters['articleId']
             table.delete_item(Key={'id': article_id})
