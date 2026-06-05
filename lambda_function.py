@@ -37,7 +37,11 @@ def article_found(article, experiment):
     if article.get('Item') is None:
         return False
     
-    return (article.get('Item').get('draft') is None or article.get('Item').get('draft') is False) or (article.get('Item').get('draft') == True and experiment == 'true')
+    if experiment == 'false':
+        return article.get('Item').get('draft') is None or article.get('Item').get('draft') is False
+    
+    return True
+
 
 def lambda_handler(event, context):
     # Check HTTP method and path
