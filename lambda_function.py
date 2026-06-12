@@ -26,12 +26,32 @@ def success_response(body):
         'body': body
     }
 
-def get_all_articles(experiment):
-    if experiment == 'false':
-        articles = table.scan(FilterExpression=Attr('draft').eq(False) | Attr('draft').not_exists())
-    else:
-        articles = table.scan()
-    return json.dumps(articles.get('Items'))
+PAGE_SIZE = 10
+
+def get_all_articles(experiment, page_num):
+    filter_expr = Attr('draft').eq(False) | Attr('draft').not_exists() if experiment == 'false' else None
+
+    scan_kwargs = {'FilterExpression': filter_expr} if filter_expr else {}
+    raw_articles = table.scan(**scan_kwargs)
+    items = raw_articles.get('Items', [])
+
+    while 'LastEvaluatedKey' in raw_articles:
+        raw_articles = table.scan(ExclusiveStartKey=raw_articles['LastEvaluatedKey'], **scan_kwargs)
+        items.extend(raw_articles.get('Items', []))
+
+    total = len(items)
+    page = int(page_num) if page_num else 0
+    total_pages = max(1, -(-total // PAGE_SIZE))  # ceiling division
+
+    start = page * PAGE_SIZE
+    end = start + PAGE_SIZE
+
+    return json.dumps({
+        'articles': items[start:end],
+        'total': total,
+        'page': page,
+        'total_pages': total_pages
+    })
 
 def article_found(article, experiment):    
     if article.get('Item') is None:
@@ -63,8 +83,9 @@ def lambda_handler(event, context):
 
     if method == 'GET':
         if path == '/articles':
+            page_num = event.get('queryStringParameters', {}).get('page', 0)
             try:
-                return success_response(get_all_articles(experiment))
+                return success_response(get_all_articles(experiment, page_num))
             except Exception as e:
                 return internal_server_exception(e)
 
