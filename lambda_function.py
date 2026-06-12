@@ -42,6 +42,13 @@ def article_found(article, experiment):
     
     return True
 
+def is_authorised_request(event):
+    api_key = event.get('headers').get('api-key')
+    if api_key is None:
+        return False
+    if api_key != os.getenv('API_KEY'):
+        return False
+    return True
 
 def lambda_handler(event, context):
     # Check HTTP method and path
@@ -78,8 +85,7 @@ def lambda_handler(event, context):
             except Exception as e:
                 return internal_server_exception(e)
     elif method == 'POST' and path == '/articles':
-        api_key = event.get('headers').get('api-key')
-        if api_key != os.getenv('API_KEY'):
+        if is_authorised_request(event):
             return {
                 'statusCode': 401,
                 'headers': {'Content-Type': 'application/json'},
@@ -122,8 +128,7 @@ def lambda_handler(event, context):
             return internal_server_exception(e)
 
     elif method == 'PUT' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
-        api_key = event.get('headers').get('api-key')
-        if api_key != os.getenv('API_KEY'):
+        if is_authorised_request(event):
             return {
                 'statusCode': 401,
                 'headers': {'Content-Type': 'application/json'},
@@ -183,8 +188,7 @@ def lambda_handler(event, context):
             return internal_server_exception(e)
 
     elif method == 'DELETE' and path.startswith('/articles/') and path_parameters and 'articleId' in path_parameters:
-        api_key = event.get('headers').get('api-key')
-        if api_key != os.getenv('API_KEY'):
+        if is_authorised_request(event):
             return {
                 'statusCode': 401,
                 'headers': {'Content-Type': 'application/json'},
