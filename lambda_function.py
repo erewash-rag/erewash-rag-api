@@ -46,7 +46,7 @@ def is_unauthorised_request(event):
     api_key = event.get('headers').get('api-key')
     if api_key is None:
         return True
-    if api_key != os.getenv('API_KEY'):
+    if api_key != os.getenv('api_key'):
         return True
     return False
 
