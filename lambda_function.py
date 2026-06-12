@@ -77,14 +77,11 @@ def lambda_handler(event, context):
     path = event.get('path', '')
     path_parameters = event.get('pathParameters', {})
 
-    if event.get('queryStringParameters') is not None:
-        experiment = event.get('queryStringParameters', {}).get('experiment', 'false')
-    else:
-        experiment = 'false'
+    experiment = (event.get('queryStringParameters') or {}).get('experiment', 'false')
 
     if method == 'GET':
         if path == '/articles':
-            page_num = event.get('queryStringParameters', {}).get('page', 0)
+            page_num = (event.get('queryStringParameters') or {}).get('page', 0)
             try:
                 return success_response(get_all_articles(experiment, page_num))
             except Exception as e:
