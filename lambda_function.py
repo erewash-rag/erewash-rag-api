@@ -29,6 +29,7 @@ def success_response(body):
 PAGE_SIZE = 10
 
 def get_all_articles(experiment, page_num):
+    print("Get all articles experiement= " + experiment + " page= " + str(page_num))
     filter_expr = Attr('draft').eq(False) | Attr('draft').not_exists() if experiment == 'false' else None
 
     scan_kwargs = {'FilterExpression': filter_expr} if filter_expr else {}
