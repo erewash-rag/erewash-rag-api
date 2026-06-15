@@ -40,6 +40,8 @@ def get_all_articles(experiment, page_num):
         raw_articles = table.scan(ExclusiveStartKey=raw_articles['LastEvaluatedKey'], **scan_kwargs)
         items.extend(raw_articles.get('Items', []))
 
+    items.sort(key=lambda x: int(x['id']) if x.get('id', '').isdigit() else 0, reverse=True)
+
     total = len(items)
     page = int(page_num) if page_num else 0
     total_pages = max(1, -(-total // PAGE_SIZE))  # ceiling division
